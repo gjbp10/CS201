@@ -223,13 +223,13 @@ public class Mainframe extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ISBN", "Title", "Author", "Genre"
+                "Title", "ISBN", "Author", "Genre"
             }
         ));
         jScrollPane1.setViewportView(tbl_displayTable);
         if (tbl_displayTable.getColumnModel().getColumnCount() > 0) {
-            tbl_displayTable.getColumnModel().getColumn(0).setHeaderValue("ISBN");
-            tbl_displayTable.getColumnModel().getColumn(1).setHeaderValue("Title");
+            tbl_displayTable.getColumnModel().getColumn(0).setHeaderValue("Title");
+            tbl_displayTable.getColumnModel().getColumn(1).setHeaderValue("ISBN");
             tbl_displayTable.getColumnModel().getColumn(2).setHeaderValue("Author");
             tbl_displayTable.getColumnModel().getColumn(3).setHeaderValue("Genre");
         }
@@ -293,6 +293,7 @@ public class Mainframe extends javax.swing.JFrame {
         JButton btn_Sort = new JButton("Sort");
         btn_Sort.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
         	}
         });
         btn_Sort.setFont(new Font("Century Gothic", Font.PLAIN, 12));
