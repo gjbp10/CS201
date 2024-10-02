@@ -1,0 +1,568 @@
+
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.Stack;
+
+public class Main extends javax.swing.JFrame {
+
+    private Stack<String[]> operationStack = new Stack<>();
+    private Stack<String[]> redoStack = new Stack<>();
+    private int numberOfBooks; // Stores the maximum number of books
+    private int booksAdded = 0; // Tracks the number of books added
+
+    public Main() {
+        initComponents();
+        initializeTableSize();
+
+        // Clears the table model
+        DefaultTableModel model = (DefaultTableModel) tbl_displayTable.getModel();
+        model.setRowCount(0);
+
+        // Updates the number of books to 0
+        jLabel2.setText(String.valueOf(0));
+    }
+
+    private void initializeTableSize() {
+
+        // Prompt user for the number of books to initialize the table size
+        numberOfBooks = Integer.parseInt(JOptionPane.showInputDialog(this, "How many books would you like to enter?", "Input Book Quantity", JOptionPane.PLAIN_MESSAGE));
+
+        // Create a model with the specified number of rows
+        DefaultTableModel model = (DefaultTableModel) tbl_displayTable.getModel();
+        model.setRowCount(numberOfBooks);
+
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        background = new javax.swing.JPanel();
+        nav_background = new javax.swing.JPanel();
+        lbl_title = new javax.swing.JLabel();
+        lbl_logo = new javax.swing.JLabel();
+        btn_add = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_displayTable = new javax.swing.JTable();
+        txt_title = new javax.swing.JTextField();
+        lbl_ = new javax.swing.JLabel();
+        txt_ISBN = new javax.swing.JTextField();
+        lbl_ISBN = new javax.swing.JLabel();
+        lbl_author = new javax.swing.JLabel();
+        txt_Author = new javax.swing.JTextField();
+        lbl_genre = new javax.swing.JLabel();
+        txt_Genre = new javax.swing.JTextField();
+        lbl_4 = new javax.swing.JLabel();
+        btn_search = new javax.swing.JButton();
+        lbl_5 = new javax.swing.JLabel();
+        btn_remove = new javax.swing.JButton();
+        txt_SearchBar = new javax.swing.JTextField();
+        lbl_books = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btn_undo = new javax.swing.JButton();
+        btn_redo = new javax.swing.JButton();
+        btn_sort = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        background.setBackground(new java.awt.Color(255, 255, 255));
+
+        nav_background.setBackground(new java.awt.Color(102, 0, 0));
+
+        lbl_title.setFont(new java.awt.Font("Merriweather Black", 0, 36)); // NOI18N
+        lbl_title.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_title.setText("LibraHub");
+
+        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageFiles/LMS logo.png"))); // NOI18N
+        lbl_logo.setToolTipText("");
+
+        javax.swing.GroupLayout nav_backgroundLayout = new javax.swing.GroupLayout(nav_background);
+        nav_background.setLayout(nav_backgroundLayout);
+        nav_backgroundLayout.setHorizontalGroup(
+            nav_backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nav_backgroundLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(lbl_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_title)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        nav_backgroundLayout.setVerticalGroup(
+            nav_backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nav_backgroundLayout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addGroup(nav_backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nav_backgroundLayout.createSequentialGroup()
+                        .addComponent(lbl_title)
+                        .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nav_backgroundLayout.createSequentialGroup()
+                        .addComponent(lbl_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))))
+        );
+
+        btn_add.setBackground(new java.awt.Color(245, 196, 0));
+        btn_add.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btn_add.setForeground(new java.awt.Color(255, 255, 255));
+        btn_add.setText("+ Add");
+        btn_add.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btn_add.setBorderPainted(false);
+        btn_add.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addActionPerformed(evt);
+            }
+        });
+
+        tbl_displayTable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tbl_displayTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title ", "ISBN", "Author", "Genre"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tbl_displayTable);
+
+        txt_title.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lbl_.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+
+        txt_ISBN.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lbl_ISBN.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        lbl_ISBN.setText("ISBN No.");
+
+        lbl_author.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        lbl_author.setText("Author");
+
+        txt_Author.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lbl_genre.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        lbl_genre.setText("Genre");
+
+        txt_Genre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lbl_4.setFont(new java.awt.Font("Merriweather Black", 1, 26)); // NOI18N
+        lbl_4.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_4.setText("Book Entry Form");
+
+        btn_search.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btn_search.setText("Search");
+        btn_search.setToolTipText("");
+        btn_search.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchActionPerformed(evt);
+            }
+        });
+
+        lbl_5.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        lbl_5.setText("Book Title");
+
+        btn_remove.setBackground(new java.awt.Color(153, 0, 0));
+        btn_remove.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btn_remove.setForeground(new java.awt.Color(255, 255, 255));
+        btn_remove.setText("Remove");
+        btn_remove.setToolTipText("");
+        btn_remove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removeActionPerformed(evt);
+            }
+        });
+
+        txt_SearchBar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txt_SearchBar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_SearchBarActionPerformed(evt);
+            }
+        });
+
+        lbl_books.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        lbl_books.setText("No. of Books:");
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 0, 0));
+        jLabel2.setText("0");
+
+        btn_undo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btn_undo.setText("Undo");
+        btn_undo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btn_undo.setBorderPainted(false);
+        btn_undo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_undo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_undoActionPerformed(evt);
+            }
+        });
+
+        btn_redo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btn_redo.setText("Redo");
+        btn_redo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btn_redo.setBorderPainted(false);
+        btn_redo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_redo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_redoActionPerformed(evt);
+            }
+        });
+
+        btn_sort.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btn_sort.setText("Sort");
+        btn_sort.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btn_sort.setBorderPainted(false);
+        btn_sort.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_sort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sortActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
+        background.setLayout(backgroundLayout);
+        backgroundLayout.setHorizontalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(nav_background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addContainerGap(104, Short.MAX_VALUE)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addComponent(lbl_4)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addComponent(lbl_)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txt_title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_ISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_ISBN)
+                                    .addComponent(lbl_author)
+                                    .addComponent(txt_Author, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_genre)
+                                    .addComponent(txt_Genre, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btn_add, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbl_5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(backgroundLayout.createSequentialGroup()
+                                .addComponent(lbl_books)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addGap(36, 36, 36)
+                                .addComponent(btn_undo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_redo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_sort, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_remove))
+                            .addGroup(backgroundLayout.createSequentialGroup()
+                                .addComponent(txt_SearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_search))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(69, 69, 69))))
+        );
+        backgroundLayout.setVerticalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addComponent(nav_background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lbl_)
+                .addGap(31, 31, 31)
+                .addComponent(lbl_4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lbl_5)
+                    .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(txt_SearchBar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addComponent(txt_title, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_ISBN)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_ISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(lbl_author)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_Author, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(lbl_genre)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_Genre, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_remove, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbl_books, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_undo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_redo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_sort, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(143, 143, 143))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        if (booksAdded < numberOfBooks) { // Check if the limit has been reached
+            String title = txt_title.getText();
+            String ISBN = txt_ISBN.getText();
+            String author = txt_Author.getText();
+            String genre = txt_Genre.getText();
+
+            DefaultTableModel model = (DefaultTableModel) tbl_displayTable.getModel();
+            model.insertRow(0, new Object[]{title, ISBN, author, genre});
+            booksAdded++; // Increments the count of added books
+
+            // Record the operation for undo
+            operationStack.push(new String[]{"add", ISBN, title, author, genre});
+
+            // Update the number of books label
+            jLabel2.setText(String.valueOf(model.getRowCount()));
+
+            // Show confirmation message
+            JOptionPane.showMessageDialog(this, "The book \"" + title + "\" has been added.", "Book Added", JOptionPane.INFORMATION_MESSAGE);
+
+            // Clears input fields
+            txt_title.setText("");
+            txt_ISBN.setText("");
+            txt_Author.setText("");
+            txt_Genre.setText("");
+        } else {
+            // Shows message when the user has reached the book limit
+            JOptionPane.showMessageDialog(null, "You've reached the limit of " + numberOfBooks + " books." + " Please delete some books to replace them with.", "Error: Limit Reached.", JOptionPane.WARNING_MESSAGE);
+        }
+    }                                       
+
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        String searchQuery = txt_SearchBar.getText().toLowerCase();
+        DefaultTableModel model = (DefaultTableModel) tbl_displayTable.getModel();
+        int rowCount = model.getRowCount();
+        int colCount = model.getColumnCount();
+        boolean found = false;
+
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = 0; j < colCount; j++) {
+                if (model.getValueAt(i, j) != null && model.getValueAt(i, j).toString().toLowerCase().contains(searchQuery)) {
+                    tbl_displayTable.setRowSelectionInterval(i, i);
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                break;
+            }
+        }
+
+        if (!found) {
+            JOptionPane.showMessageDialog(null, "No match found.", "Search Result", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }                                          
+
+    private void btn_removeActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        DefaultTableModel model = (DefaultTableModel) tbl_displayTable.getModel();
+        int selectedRow = tbl_displayTable.getSelectedRow();
+
+        if (selectedRow >= 0) {
+            // Store book details before removal
+            String isbn = model.getValueAt(selectedRow, 1).toString();
+            String title = model.getValueAt(selectedRow, 0).toString();
+            String author = model.getValueAt(selectedRow, 2).toString();
+            String genre = model.getValueAt(selectedRow, 3).toString();
+
+            // Record the operation for undo
+            operationStack.push(new String[]{"remove", isbn, title, author, genre});
+
+            // Remove the selected row
+            model.removeRow(selectedRow);
+
+            // Update the number of books
+            jLabel2.setText(" " + model.getRowCount());
+
+            // Show confirmation message
+            JOptionPane.showMessageDialog(this, "The book \"" + title + "\" has been removed.", "Book Removed", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a book to delete", "Selection Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }                                          
+
+    private void txt_SearchBarActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // Optionally, trigger search when Enter is pressed
+        btn_searchActionPerformed(evt); // Reusing search action
+    }                                             
+
+    private void btn_undoActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        if (!operationStack.isEmpty()) {
+            String[] lastOperation = operationStack.pop();
+            DefaultTableModel model = (DefaultTableModel) tbl_displayTable.getModel();
+            String title = lastOperation[2];
+
+            if (lastOperation[0].equals("add")) {
+                if (model.getRowCount() > 0) {
+                    model.removeRow(0);
+                    booksAdded--;
+                    JOptionPane.showMessageDialog(this, "The addition of \"" + title + "\" has been undone.", "Undo Add", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else if (lastOperation[0].equals("remove")) {
+                model.addRow(new Object[]{lastOperation[2], lastOperation[1], lastOperation[3], lastOperation[4]});
+                booksAdded++;
+                JOptionPane.showMessageDialog(this, "The removal of \"" + title + "\" has been undone.", "Undo Remove", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            redoStack.push(lastOperation);
+            jLabel2.setText(String.valueOf(booksAdded));
+        } else {
+            JOptionPane.showMessageDialog(null, "No operations to undo.", "Undo Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }                                        
+
+    private void btn_redoActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        if (!redoStack.isEmpty()) {
+            String[] lastUndoneOperation = redoStack.pop();
+            DefaultTableModel model = (DefaultTableModel) tbl_displayTable.getModel();
+            String title = lastUndoneOperation[2];
+
+            if (lastUndoneOperation[0].equals("add")) {
+                model.insertRow(0, new Object[]{lastUndoneOperation[2], lastUndoneOperation[1], lastUndoneOperation[3], lastUndoneOperation[4]});
+                booksAdded++;
+                JOptionPane.showMessageDialog(this, "The addition of \"" + title + "\" has been redone.", "Redo Add", JOptionPane.INFORMATION_MESSAGE);
+            } else if (lastUndoneOperation[0].equals("remove")) {
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    if (model.getValueAt(i, 1).equals(lastUndoneOperation[1])) {
+                        model.removeRow(i);
+                        booksAdded--;
+                        JOptionPane.showMessageDialog(this, "The removal of \"" + title + "\" has been redone.", "Redo Remove", JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    }
+                }
+            }
+
+            operationStack.push(lastUndoneOperation);
+            jLabel2.setText(String.valueOf(booksAdded));
+        } else {
+            JOptionPane.showMessageDialog(null, "No operations to redo.", "Redo Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }                                        
+
+    private void btn_sortActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        DefaultTableModel model = (DefaultTableModel) tbl_displayTable.getModel();
+        int n = model.getRowCount();
+        // Implementing bubble sort to sort the table
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                // Get the titles
+                String title1 = model.getValueAt(j, 0).toString();
+                String title2 = model.getValueAt(j + 1, 0).toString();
+                // Compare and swap
+                if (title1.compareToIgnoreCase(title2) > 0) { // Change to > 0 for ascending order
+                    // Swap the rows
+                    Object[] row1 = new Object[]{model.getValueAt(j, 0), model.getValueAt(j, 1), model.getValueAt(j, 2), model.getValueAt(j, 3)};
+                    Object[] row2 = new Object[]{model.getValueAt(j + 1, 0), model.getValueAt(j + 1, 1), model.getValueAt(j + 1, 2), model.getValueAt(j + 1, 3)};
+                    // Remove to sort
+                    model.removeRow(j);
+                    model.removeRow(j);
+                    // Add back again after sorting
+                    model.insertRow(j, row2);
+                    model.insertRow(j + 1, row1);
+                }
+            }
+        }
+    }                                        
+
+    public static void main(String args[]) {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Main().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JPanel background;
+    private javax.swing.JButton btn_add;
+    private javax.swing.JButton btn_redo;
+    private javax.swing.JButton btn_remove;
+    private javax.swing.JButton btn_search;
+    private javax.swing.JButton btn_sort;
+    private javax.swing.JButton btn_undo;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_;
+    private javax.swing.JLabel lbl_4;
+    private javax.swing.JLabel lbl_5;
+    private javax.swing.JLabel lbl_ISBN;
+    private javax.swing.JLabel lbl_author;
+    private javax.swing.JLabel lbl_books;
+    private javax.swing.JLabel lbl_genre;
+    private javax.swing.JLabel lbl_logo;
+    private javax.swing.JLabel lbl_title;
+    private javax.swing.JPanel nav_background;
+    private javax.swing.JTable tbl_displayTable;
+    private javax.swing.JTextField txt_Author;
+    private javax.swing.JTextField txt_Genre;
+    private javax.swing.JTextField txt_ISBN;
+    private javax.swing.JTextField txt_SearchBar;
+    private javax.swing.JTextField txt_title;
+    // End of variables declaration                   
+
+    private void clearInputFields() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
